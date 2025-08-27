@@ -1,0 +1,35 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
+name: USBCAN2MQTT add-on
+version: "1.0.2"
+slug: usbcan2mqtt
+description: USBCAN2MQTT add-on
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+startup: "application"
+init: false
+host_network: true
+usb: true
+options:
+  MQTT_HOST: "localhost"
+  MQTT_PORT: "1883"
+  MQTT_USER: "mqtt"
+  MQTT_PASSWORD: "mqtt"
+  MQTT_RX_TOPIC: "can/rx"
+  MQTT_TX_TOPIC: "can/tx"
+  HOMEASSISTANT_CONFIG_OUTPUTS: "{}"
+  HOMEASSISTANT_CONFIG_INPUTS: "{}"
+  HOMEASSISTANT_CONFIG_VOLTMETERS: "{}"
+schema:
+  MQTT_HOST: "str?"
+  MQTT_PORT: "str?"
+  MQTT_USER: "str?"
+  MQTT_PASSWORD: "str?"
+  MQTT_RX_TOPIC: "str?"
+  MQTT_TX_TOPIC: "str?"
+  HOMEASSISTANT_CONFIG_OUTPUTS: "str?"
+  HOMEASSISTANT_CONFIG_INPUTS: "str?"
+  HOMEASSISTANT_CONFIG_VOLTMETERS: "str?"

@@ -1,0 +1,4 @@
+# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+name: Home Assistant USBCAN2MQTT add-on repository
+url: 'https://github.com/chpeps/homeassistant-usbcan2mqtt'
+maintainer: Chpeps <chpeps@gmail.com>

@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start the USBCAN2MQTT service
+# s6-overlay docs: https://github.com/just-containers/s6-overlay
+# ==============================================================================
+
+# Export configuration options as environment variables
+export MQTT_HOST=$(bashio::config 'MQTT_HOST')
+export MQTT_PORT=$(bashio::config 'MQTT_PORT')
+export MQTT_USER=$(bashio::config 'MQTT_USER')
+export MQTT_PASSWORD=$(bashio::config 'MQTT_PASSWORD')
+export MQTT_RX_TOPIC=$(bashio::config 'MQTT_RX_TOPIC')
+export MQTT_TX_TOPIC=$(bashio::config 'MQTT_TX_TOPIC')
+export HOMEASSISTANT_CONFIG_OUTPUTS=$(bashio::config 'HOMEASSISTANT_CONFIG_OUTPUTS')
+export HOMEASSISTANT_CONFIG_INPUTS=$(bashio::config 'HOMEASSISTANT_CONFIG_INPUTS')
+export HOMEASSISTANT_CONFIG_VOLTMETERS=$(bashio::config 'HOMEASSISTANT_CONFIG_VOLTMETERS')
+
+bashio::log.info "Starting USBCAN2MQTT add-on"
+
+## Run your program with python3
+cd /usr/bin
+exec python3 /usr/bin/driver_can.py

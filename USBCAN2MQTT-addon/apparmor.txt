@@ -1,0 +1,78 @@
+#include <tunables/global>
+
+profile usbcan2mqtt flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+
+  # Capabilities
+  capability,
+  file,
+  signal (send) set=(kill,term,int,hup,cont),
+  network,
+
+  # S6-Overlay
+  /init ix,
+  /bin/** ix,
+  /usr/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
+  /package/** ix,
+  /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
+  /run/{,**} rwk,
+  /dev/tty rw,
+
+  # Bashio
+  /usr/lib/bashio/** ix,
+  /tmp/** rwk,
+
+  # Access to options.json and other files within your addon
+  /data/** rw,
+
+  # Start new profile for service
+  /usr/bin/python3 cx -> driver_can,
+
+  profile driver_can flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+    #include <abstractions/python>
+
+    # Receive signals from S6-Overlay
+    signal (receive) peer=*_usbcan2mqtt,
+
+    # Access to options.json and other files within your addon
+    /data/** rw,
+
+    # Access to mapped volumes specified in config.json
+    /share/** rw,
+
+    # Python and script access
+    /usr/bin/python3 ix,
+    /usr/bin/driver_can.py r,
+    /usr/bin/CAN/** r,
+
+    # USB and CAN device access
+    /dev/bus/usb/** rw,
+    /sys/bus/usb/** r,
+    /sys/devices/** r,
+    /proc/bus/usb/** rw,
+    /dev/ttyUSB* rw,
+    /dev/ttyACM* rw,
+
+    # Network access for MQTT
+    network inet stream,
+    network inet dgram,
+
+    # System files
+    /bin/bash rix,
+    /bin/echo ix,
+    /etc/passwd r,
+    /etc/group r,
+    /etc/nsswitch.conf r,
+    /etc/resolv.conf r,
+    /dev/tty rw,
+
+    # Temporary files and logs
+    /tmp/** rwk,
+    /var/log/** w,
+  }
+}

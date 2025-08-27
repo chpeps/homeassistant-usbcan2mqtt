@@ -1,0 +1,82 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Deploy All Addons",
+            "type": "shell",
+            "command": "./scripts/deploy/deploy_shortcut.sh",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Deploy Addon (Select)",
+            "type": "shell",
+            "command": "./scripts/deploy/deploy_multiple_addons.sh",
+            "args": ["${input:addonName}"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Quick Start Guide",
+            "type": "shell",
+            "command": "./scripts/utils/quick_start.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Test Deployment",
+            "type": "shell",
+            "command": "./scripts/test/test_deployment.sh",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Deploy via Main Script",
+            "type": "shell",
+            "command": "./deploy.sh",
+            "args": ["deploy-multi", "all"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "addonName",
+            "description": "Select addon to deploy",
+            "default": "all",
+            "type": "pickString",
+            "options": ["all", "TankMonitor", "Powerail", "USBCAN2MQTT"]
+        }
+    ]
+}
