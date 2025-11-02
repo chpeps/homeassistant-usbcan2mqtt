@@ -86,6 +86,19 @@ MIT (c) 2025 Chpeps
 
 ---
 ## Additional Notes
-- All add-on files are now at the repository root (not under /addon). Any older doc or config referring to `/addon/` paths is obsolete.
 - For questions or support, visit the [GitHub Discussions](https://github.com/chpeps/homeassistant-usbcan2mqtt/discussions).
-- See also the Dockerfile and config.yaml at the root for contributor/maintainer options.
+
+## 🚧 Todo / Things Left To Do
+
+- [ ] Improve error recovery in `driver_can.py` (auto-reconnect on CAN or MQTT failure)
+- [ ] Parameter reference: thoroughly document all configuration options in `config.yaml`
+- [ ] Make the CAN→MQTT mapping customizable from UI (Blueprint or Input helpers)
+- [ ] Add unit and integration tests for all major Python scripts (esp. CAN message processing)
+- [ ] Provide example Home Assistant automations consuming published MQTT topics
+- [ ] Enhance log output (detail, severity levels, and filtering)
+- [ ] Validate and test with latest Home Assistant versions (2025.6+)
+- [ ] Add upgrade guide and instructions for updating the add-on
+- [ ] Write/update full user documentation in both English and French
+- [ ] Publish on the Home Assistant Community Add-ons registry for broader feedback
+
+---
